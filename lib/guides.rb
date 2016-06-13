@@ -1,6 +1,6 @@
 require "action_pack"
 require "redcloth"
-require "maruku"
+require "kramdown"
 
 require "guides/textile_transformer"
 require "guides/markdown_extensions"

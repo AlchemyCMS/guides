@@ -24,7 +24,8 @@ Gem::Specification.new do |s|
   s.add_dependency "activesupport", "~> 3.0.0"
   s.add_dependency "rack", "~> 1.2.1"
   s.add_dependency "RedCloth", "~> 4.2.7"
-  s.add_dependency "maruku", "~> 0.6.0"
+  s.add_dependency "kramdown", "~> 1.11"
+  s.add_dependency "coderay", "~> 1.1"
   s.add_dependency "thor", "~> 0.14.6"
   s.add_dependency "thin", "~> 1.2.7"
   s.add_dependency 'eventmachine', '~> 1.0.0.beta.4'
@@ -38,4 +39,3 @@ Gem::Specification.new do |s|
   s.executables        = %w(guides)
   s.require_paths      = ["lib"]
 end
-

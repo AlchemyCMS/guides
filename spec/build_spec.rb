@@ -67,6 +67,12 @@ describe "guides build" do
       article_two.should =~ /<h2[^>]*>Article Two<\/h2>/
     end
 
+    it "convert INFO: blocks to formatted div" do
+      article_two = File.read("output/article_two.html")
+      info_block = %{<div class="info"><p>It has an info block with <code>markdown</code> syntax</p>\n</div>}
+      article_two.should =~ Regexp.new(info_block)
+    end
+
     it "does not create under-construction article" do
       File.exist?("output/article_four.html").should be_falsey
     end

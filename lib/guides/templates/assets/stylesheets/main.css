@@ -24,10 +24,10 @@ dl dt { font-weight: bold; }
 dd { margin-left: 1.5em;}
 
 pre,code { margin: 1.5em 0; overflow: auto; color: #222;}
+code { white-space: pre; }
 pre,code,tt,ins {
-    font-size: 1em;
+    font-size: 0.9em;
     font-family: "Anonymous Pro", "Inconsolata", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New", monospace;
-    line-height: 1.5;
 }
 
 abbr, acronym { border-bottom: 1px dotted #666; }
@@ -349,25 +349,55 @@ h6 {
 	margin-top: 0.25em;
 }
 
-#subCol .chapters {color: #980905;}
-#subCol .chapters a {font-weight: bold;}
-#subCol .chapters ul a {font-weight: normal;}
-#subCol .chapters li {margin-bottom: 0.75em;}
-#subCol h3.chapter {margin-top: 0.25em;}
-#subCol h3.chapter img {vertical-align: text-bottom;}
-#subCol .chapters ul {margin-left: 0; margin-top: 0.5em;}
-#subCol .chapters ul li {
-	list-style: none;
-	padding: 0 0 0 1em;
-	background: url(../images/bullet.gif) no-repeat left 0.45em;
-	margin-left: 0;
-	font-size: 1em;
-	font-weight: normal;
+#subCol .chapters,
+#markdown-toc {
+  color: #980905;
 }
 
-div.code_container {
+#subCol .chapters a,
+#markdown-toc a {
+  font-weight: bold;
+}
+
+#subCol .chapters ul,
+#markdown-toc ol {
+  margin-left: 0;
+  margin-bottom: 0.5em;
+}
+
+#subCol .chapters ul li,
+#markdown-toc ol li {
+  list-style: none;
+  padding: 0 0 0 1em;
+  background: url(../images/bullet.gif) no-repeat left 0.45em;
+  margin-left: 0;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+#subCol .chapters ul a,
+#markdown-toc ol a {
+  font-weight: normal;
+}
+
+#subCol .chapters li,
+#markdown-toc li {
+  line-height: 1.75em;
+}
+
+#subCol h3.chapter {margin-top: 0.25em;}
+
+#subCol h3.chapter img {vertical-align: text-bottom;}
+
+div.code_container,
+div.highlighter-coderay {
 	background: #EEE url(../images/tab_grey.gif) no-repeat left top;
 	padding: 0.25em 1em 0.5em 48px;
+  margin-top: 1.5em;
+}
+
+div.highlighter-coderay pre {
+  margin: 1em 0;
 }
 
 div.code_container div.filename {
@@ -434,7 +464,13 @@ div.code_container div.filename {
 
 /* Same bottom margin for special boxes than for regular paragraphs, this way
 intermediate whitespace looks uniform. */
-div.code_container, div.important, div.caution, div.warning, div.note, div.info {
+div.code_container,
+div.highlighter-coderay,
+div.important,
+div.caution,
+div.warning,
+div.note,
+div.info {
     margin-bottom: 1.5em;
 }
 

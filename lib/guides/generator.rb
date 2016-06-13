@@ -195,43 +195,53 @@ module Guides
     end
 
     def set_index(body, view, processor)
-      index = ""
+      if processor == :markdown
+        index = markdown("1. toc\n{:toc}\n#{body}").sub(markdown(body), '')
+        chapters = index
+        result = body
+      else
+        index = ""
 
-      i = Indexer.new(body, warnings, @production)
-      i.index
+        i = Indexer.new(body, warnings, @production)
+        i.index
 
-      # Set index for 2 levels
-      i.level_hash.each do |key, value|
-        link = view.content_tag(:a, :href => key[:id]) do
-          (processor == :markdown ? markdown(key[:title]) : textile(key[:title], true)).html_safe
-        end
+        # Set index for 2 levels
+        i.level_hash.each do |key, value|
+          link = view.content_tag(:a, :href => key[:id]) do
+            (processor == :markdown ? markdown(key[:title]) : textile(key[:title], true)).html_safe
+          end
 
-        children = value.keys.map do |k|
-          view.content_tag :li do
-            view.content_tag(:a, :href => k[:id]) do
-              (processor == :markdown ? markdown(k[:title]) : textile(k[:title], true)).html_safe
+          children = value.keys.map do |k|
+            view.content_tag :li do
+              view.content_tag(:a, :href => k[:id]) do
+                (processor == :markdown ? markdown(k[:title]) : textile(k[:title], true)).html_safe
+              end
             end
           end
+
+          children_ul = children.empty? ? "" : view.content_tag(:ul, children.join(" ").html_safe)
+
+          index << view.content_tag(:li, link.html_safe + children_ul.html_safe)
         end
-
-        children_ul = children.empty? ? "" : view.content_tag(:ul, children.join(" ").html_safe)
-
-        index << view.content_tag(:li, link.html_safe + children_ul.html_safe)
+        chapters = <<-CHAPTERS
+        <ol class="chapters">
+          #{index}
+        </ol>
+        CHAPTERS
+        result = i.result
       end
 
       index_section = <<-INDEX
       <div id="subCol">
         <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-        <ol class="chapters">
-          #{index}
-        </ol>
+        #{chapters}
       </div>
       INDEX
 
       view.content_for(:index_items) { index.html_safe }
       view.content_for(:index_section) { index_section.html_safe }
 
-      i.result
+      result
     end
 
     def textile(body, lite_mode=false)
@@ -239,7 +249,16 @@ module Guides
     end
 
     def markdown(body)
-      Maruku.new(body).to_html
+      opts = {
+        input: 'GuidesMarkdown',
+        syntax_highlighter_opts: {
+          default_lang: 'ruby',
+          line_numbers: false,
+          toc_levels: 2..4
+        }
+      }
+
+      Kramdown::Document.new(body, opts).to_html
     end
 
     def warn_about_broken_links(html)
