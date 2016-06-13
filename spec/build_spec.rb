@@ -20,12 +20,12 @@ describe "guides build" do
     it "generates assets" do
       files = Dir["output/*"]
 
-      File.directory?("output/images").should be_true
-      File.directory?("output/javascripts").should be_true
-      File.directory?("output/stylesheets").should be_true
-      File.file?("output/javascripts/guides.js").should be_true
-      File.file?("output/stylesheets/main.css").should be_true
-      File.file?("output/stylesheets/overrides.style.css").should be_true
+      File.directory?("output/images").should be_truthy
+      File.directory?("output/javascripts").should be_truthy
+      File.directory?("output/stylesheets").should be_truthy
+      File.file?("output/javascripts/guides.js").should be_truthy
+      File.file?("output/stylesheets/main.css").should be_truthy
+      File.file?("output/stylesheets/overrides.style.css").should be_truthy
     end
 
     it "does nothing if run twice in a row" do
@@ -68,7 +68,7 @@ describe "guides build" do
     end
 
     it "does not create under-construction article" do
-      File.exist?("output/article_four.html").should be_false
+      File.exist?("output/article_four.html").should be_falsey
     end
 
   end
