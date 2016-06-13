@@ -71,6 +71,10 @@ describe "guides build" do
       File.exist?("output/article_four.html").should be_falsey
     end
 
+    it "shows current guide file name" do
+      article_two = File.read("output/article_three.html")
+      article_two.should =~ /<aside class="guide-name">article_three.textile<\/aside>/
+    end
   end
 
   describe "development" do
@@ -100,4 +104,3 @@ describe "guides build" do
   end
 
 end
-

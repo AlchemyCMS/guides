@@ -139,7 +139,7 @@ module Guides
 
       puts "Generating #{output_file}"
       File.open(File.join(output_dir, output_file), 'w') do |f|
-        view = ActionView::Base.new(source_dir, :edge => edge, :production => @production)
+        view = ActionView::Base.new(source_dir, :edge => edge, :production => @production, :guide_name => guide)
         view.extend(Helpers)
         view.render("sections")
 
