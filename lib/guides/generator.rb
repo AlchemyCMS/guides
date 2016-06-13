@@ -196,8 +196,7 @@ module Guides
 
     def set_index(body, view, processor)
       if processor == :markdown
-        index = markdown("1. toc\n{:toc}\n#{body}").sub(markdown(body), '')
-        chapters = index
+        chapters = index = markdown("1. toc\n{:toc}\n\n#{body}").sub(markdown(body), '')
         result = body
       else
         index = ""
@@ -254,7 +253,7 @@ module Guides
         syntax_highlighter_opts: {
           default_lang: 'ruby',
           line_numbers: false,
-          toc_levels: 2..4
+          toc_levels: 3..4
         }
       }
 

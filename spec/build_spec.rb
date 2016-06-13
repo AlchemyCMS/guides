@@ -73,6 +73,12 @@ describe "guides build" do
       article_two.should =~ Regexp.new(info_block)
     end
 
+    it "includes TOC for markdown files" do
+      article_two = File.read("output/article_two.html")
+      toc = %{<ol id="markdown-toc">}
+      article_two.should =~ Regexp.new(toc)
+    end
+
     it "does not create under-construction article" do
       File.exist?("output/article_four.html").should be_falsey
     end
